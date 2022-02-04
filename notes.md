@@ -12,5 +12,17 @@ app.get('/test', async (req, res) => {
 })
 ```
 
+## Custom Types
+É uma forma de adicionar tipos personalizados para variáveis
+
+Exemplo:
+```ts
+declare namespace express {
+    export interface application {
+        db: import('./database').database
+    }
+}
+```
+
 ## Todo
 [] JWT (Sign, Verify)

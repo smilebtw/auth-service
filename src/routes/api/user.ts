@@ -72,9 +72,13 @@ const loginUser = async (req: Request, res: Response) => {
     const secret = process.env.JWT_SECRET;
     const isValid = await bcrypt.compare(password, user.password);
     if (isValid && secret) {
-      const token = jwt.sign({ role: user.role }, secret, {
-        expiresIn: "8h",
-      });
+      const token = jwt.sign(
+        { username: user.username, role: user.role },
+        secret,
+        {
+          expiresIn: "8h",
+        }
+      );
       res.cookie("access_token", token).status(200).json({
         message: "Logged in successfully",
       });

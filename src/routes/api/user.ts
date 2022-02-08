@@ -16,7 +16,7 @@ const createUser = async (req: Request, res: Response) => {
   if (!username || !email || !password) {
     return res.status(400).json({
       error: {
-        message: "Missing some request data",
+        message: "Check your request body",
       },
     });
   }
@@ -113,9 +113,36 @@ const getOneUser = async (req: Request, res: Response) => {
   }
 };
 
+const decodeToken = async (req: Request, res: Response) => {
+  const { token } = req.body;
+
+  if (!token) {
+    return res.status(400).json({
+      error: {
+        message: "Check your request body",
+      },
+    });
+  }
+
+  const secret = process.env.JWT_SECRET;
+  if (secret) {
+    try {
+      const decodedToken = jwt.verify(token, secret);
+      res.status(200).json(decodedToken);
+    } catch (error) {
+      res.status(401).json({
+        error: {
+          message: "Unauthorized token",
+        },
+      });
+    }
+  }
+};
+
 const user = (routes: Router) => {
   routes.post("/v1/auth/create", createUser);
   routes.post("/v1/auth/login", loginUser);
+  routes.post("/v1/auth/verify", decodeToken);
   routes.get("/v1/auth/user", getAllUsers);
   routes.get("/v1/auth/user/:user", getOneUser);
 };

@@ -82,6 +82,12 @@ export const loginUser = async (req: Request, res: Response) => {
       res.cookie("access_token", token).status(200).json({
         message: "Logged in successfully",
       });
+    } else {
+      res.status(401).json({
+        error: {
+          message: "Incorrect password",
+        },
+      });
     }
   }
 };

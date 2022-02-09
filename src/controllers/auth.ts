@@ -2,7 +2,7 @@ require("dotenv").config();
 import type { Response, Request, NextFunction, Router } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import database from "../../database/index";
+import database from "../database/index";
 import { Prisma } from "@prisma/client";
 
 type userBody = {
@@ -11,7 +11,7 @@ type userBody = {
   email: string;
 };
 
-const createUser = async (req: Request, res: Response) => {
+export const createUser = async (req: Request, res: Response) => {
   const { username, email, password } = req.body as userBody;
   if (!username || !email || !password) {
     return res.status(400).json({
@@ -46,7 +46,7 @@ const createUser = async (req: Request, res: Response) => {
   }
 };
 
-const loginUser = async (req: Request, res: Response) => {
+export const loginUser = async (req: Request, res: Response) => {
   const { username, password } = req.body as userBody;
   if (!username || !password) {
     return res.status(400).json({
@@ -86,7 +86,7 @@ const loginUser = async (req: Request, res: Response) => {
   }
 };
 
-const getAllUsers = async (req: Request, res: Response) => {
+export const getAllUsers = async (req: Request, res: Response) => {
   const users = await database.user.findMany();
   if (!users) {
     res.status(404).json({
@@ -99,7 +99,7 @@ const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-const getOneUser = async (req: Request, res: Response) => {
+export const getOneUser = async (req: Request, res: Response) => {
   const user = await database.user.findFirst({
     where: {
       username: req.params.user,
@@ -117,7 +117,7 @@ const getOneUser = async (req: Request, res: Response) => {
   }
 };
 
-const decodeToken = async (req: Request, res: Response) => {
+export const decodeToken = async (req: Request, res: Response) => {
   const { token } = req.body;
 
   if (!token) {
@@ -142,13 +142,3 @@ const decodeToken = async (req: Request, res: Response) => {
     }
   }
 };
-
-const user = (routes: Router) => {
-  routes.post("/v1/auth/create", createUser);
-  routes.post("/v1/auth/login", loginUser);
-  routes.post("/v1/auth/verify", decodeToken);
-  routes.get("/v1/auth/user", getAllUsers);
-  routes.get("/v1/auth/user/:user", getOneUser);
-};
-
-export default user;

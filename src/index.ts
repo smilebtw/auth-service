@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-import routes from "./routes";
+import routes from "./routes/routes";
 
 const app = express();
 app.use(express.json());

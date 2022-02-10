@@ -101,7 +101,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
       },
     });
   } else {
-    res.json(users);
+    res.status(200).json(users);
   }
 };
 

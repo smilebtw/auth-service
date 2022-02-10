@@ -11,6 +11,7 @@ describe("POST /v1/auth/login", () => {
       expect(response.statusCode).toBe(200);
     });
 
+
     test("Caso forem válidos mas não constam no banco devem retornar o STATUS 404", async () => {
       const response = await request(app).post("/v1/auth/login").send({
         username: "dnisoandoiasndioasdasndoasidnasio",

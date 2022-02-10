@@ -119,7 +119,7 @@ export const getOneUser = async (req: Request, res: Response) => {
       },
     });
   } else {
-    res.json(user);
+    res.status(200).json(user);
   }
 };
 

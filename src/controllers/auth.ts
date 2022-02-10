@@ -85,7 +85,7 @@ export const loginUser = async (req: Request, res: Response) => {
     } else {
       res.status(401).json({
         error: {
-          message: "Incorrect password",
+          message: "Incorrect password"
         },
       });
     }

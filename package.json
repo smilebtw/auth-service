@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development tsnd --transpile-only ./src",
-    "test": "dotenv -e .env.test jest",
+    "test": "NODE_ENV=test tsnd --transpile-only ./src",
+    "tests": "dotenv -e .env.test jest",
     "prod": "NODE_ENV=production tsnd --transpile-only ./src",
     "migrate:dev": "dotenv -e .env.development -- npx prisma migrate dev --name users",
     "migrate:test": "dotenv -e .env.test -- npx prisma migrate dev --name users",

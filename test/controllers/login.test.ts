@@ -5,8 +5,8 @@ describe("POST /v1/auth/login", () => {
   describe("Recebendo um usuário e senha na request", () => {
     test("Caso forem válidos e constam no banco deve retornar o STATUS 200", async () => {
       const response = await request(app).post("/v1/auth/login").send({
-        username: "pinto",
-        password: "pinto",
+        username: "testUser",
+        password: "myPassword",
       });
       expect(response.statusCode).toBe(200);
     });
@@ -22,7 +22,7 @@ describe("POST /v1/auth/login", () => {
 
     test("Caso o usuário for válido mas a senha incorreta deve retornar STATUS 401", async () => {
       const response = await request(app).post("/v1/auth/login").send({
-        username: "pinto",
+        username: "testUser",
         password: "edwiohdawiudhawiudgwahdagdsao",
       });
       expect(response.statusCode).toBe(401);

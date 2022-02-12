@@ -1,4 +1,5 @@
 require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
+console.log(process.env.NODE_ENV);
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";

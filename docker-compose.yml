@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  auth:
+    build: .
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./.env.development
+    environment:
+      - PORT=5000
+      - ALLOW_ORIGIN=*
+      - DATABASE_PATH=postgresql://postgres:4UTH@S3RV1C3!@db:5432/dev
+      - JWT_SECRET=DEVENVIRON 
+    depends_on:
+      - db
+    command: bash -c "npm run dev"
+
+  db:
+    image: "postgres"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "4UTH@S3RV1C3!"
+      POSTGRES_DB: "dev"
+    volumes:
+      - dbdata:/var/lib/postgresql/data/
+  
+volumes:
+  dbdata:
+

@@ -1,4 +1,4 @@
-require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` })
+require('dotenv').config()
 import type { Response, Request, NextFunction, Router } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";

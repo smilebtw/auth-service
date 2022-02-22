@@ -9,7 +9,7 @@ services:
       - ./.env.${ENVIROMENT}
     depends_on:
       - db
-    command: bash -c "npm run test"
+    command: bash -c "npm run ${ENVIROMENT}"
 
   db:
     image: "postgres"
